@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Browser for note",
+  "properties": {
+    "One card by note": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to only show one card by note. Can be switched in browser's menu."
+    }
+  }
+}

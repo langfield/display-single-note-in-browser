@@ -1,0 +1,1 @@
+"One card by note": Whether to only show one card by note. Can be switched in browser's menu.
