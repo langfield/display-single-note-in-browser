@@ -7,6 +7,12 @@
       "type": "boolean",
       "default": true,
       "description": "Whether to only show one card by note. Can be switched in browser's menu."
+    },
+    "Shortcut": {
+      "type": "string",
+      "default": "Alt+Shift+N",
+      "description": "Shortcut to switch between card mode and note mode",
+      "pattern": "^((([Cc][Tt][Rr][Ll]|[Aa][Ll][Tt]|[Ss][Hh][Ii][Ff][Tt])\\+){0,3}([a-zA-Z0-9]|F[1-9]|F1[0-2]))?$"
     }
   }
 }

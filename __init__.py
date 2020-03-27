@@ -1,7 +1,8 @@
 from aqt import gui_hooks, mw
 from aqt.browser import SearchContext
+from PyQt5 import QtWidgets
 
-from .config import getUserOption
+from .config import getUserOption, setUserOption
 
 
 def one_by_note(ctx: SearchContext):
@@ -29,3 +30,22 @@ def one_by_note(ctx: SearchContext):
 
 
 gui_hooks.browser_did_search.append(one_by_note)
+
+
+def will_show(browser):
+    browser.form.action_only_note = QtWidgets.QAction(browser)
+    browser.form.menu_Notes.addAction(browser.form.action_only_note)
+    browser.form.action_only_note.setText("Card/Note")
+    browser.form.action_only_note.setShortcut(
+            getUserOption("Shortcut", "Ctrl+Alt+N"))
+    browser.form.action_only_note.triggered.connect(lambda: on_card_note(browser))
+
+
+def on_card_note(browser):
+    setUserOption("One card by note", not getUserOption(
+        "One card by note", True))
+    browser.onSearchActivated()
+    
+
+
+gui_hooks.browser_will_show.append(will_show)

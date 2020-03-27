@@ -9,6 +9,12 @@ instead of cards.
 This used to be a part of the "advanced browser" add-on, but since
 2.1.24, it became easy enough to create a separate add-on for it.
 
+## Use
+
+You can switch between note and card mode in the browser by pressing
+on Notes > Card/Note. You can use the add-on configuration to
+configure the short-cut (by default Alt+Shift+N).
+
 ## Links, licence and credits
 
 Key         |Value
