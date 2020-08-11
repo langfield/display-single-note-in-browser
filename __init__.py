@@ -1,6 +1,8 @@
 from aqt import gui_hooks, mw
 from aqt.browser import SearchContext
 from PyQt5 import QtWidgets
+from anki.utils import ids2str
+from aqt.browser import Browser
 
 from .config import getUserOption, setUserOption
 
@@ -49,3 +51,16 @@ def on_card_note(browser):
 
 
 gui_hooks.browser_will_show.append(will_show)
+
+def selectedCards(browser):
+    cids = [
+        browser.model.cards[idx.row()]
+        for idx in browser.form.tableView.selectionModel().selectedRows()
+    ]
+    if getUserOption("One card by note", True) and getUserOption("Action to note", True):
+        query = f"select card.id from cards as card where card.nid in (select nid from cards as model_card where model_card.id in {ids2str(cids)})"
+        cids = browser.col.db.list(query)
+    return cids
+
+
+Browser.selectedCards = selectedCards

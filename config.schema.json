@@ -13,6 +13,10 @@
       "default": "Alt+Shift+N",
       "description": "Shortcut to switch between card mode and note mode",
       "pattern": "^((([Cc][Tt][Rr][Ll]|[Aa][Ll][Tt]|[Ss][Hh][Ii][Ff][Tt])\\+){0,3}([a-zA-Z0-9]|F[1-9]|F1[0-2]))?$"
-    }
+    },
+    "Action to note": {
+      "type": "boolean",
+      "default": true,
+    "description": "when you see a single card by note, suspend/unsuspend, bury/unbury... all cards of the note."}
   }
 }
