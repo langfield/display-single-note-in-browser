@@ -15,9 +15,9 @@ def one_by_note(ctx: SearchContext):
     selected_nid = selected_card.nid if selected_card else 0
     idx_of_selected_note = None
     # position of the unique card of note currently in reviewer
+
     for cid in ctx.card_ids:
-        card = mw.col.getCard(cid)
-        nid = card.nid
+        nid = mw.col.db.scalar("select nid from cards where id = ?", cid)
         if nid not in nids:
             filtered_card.append(cid)
             nids.add(nid)
