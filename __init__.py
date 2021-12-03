@@ -4,12 +4,6 @@ from PyQt5 import QtWidgets
 from anki.utils import ids2str
 from aqt.browser import Browser
 
-# DEBUG
-import os
-import logging
-logging.basicConfig(filename=os.path.expanduser('~/anki.log'), level=logging.DEBUG)
-logging.debug('This message should go to the log file')
-
 from .config import getUserOption, setUserOption
 
 
@@ -24,26 +18,17 @@ def one_by_note(ctx: SearchContext):
     idx_of_selected_note = None
     # position of the unique card of note currently in reviewer
 
-    # DEBUG
-    logging.debug(vars(ctx))
-    try:
-        logging.debug("MAL: In try block")
-        for cid in ctx.ids:
-            nid = mw.col.db.scalar("select nid from cards where id = ?", cid)
-            if nid not in nids:
-                filtered_card.append(cid)
-                nids.add(nid)
-                if nid == selected_nid:
-                    idx_of_selected_note = len(filtered_card) - 1
-            elif cid == selected_cid:  # nid in nids
-                filtered_card.pop(idx_of_selected_note)
-                filtered_card.append(cid)
-        logging.debug("MAL: End of try block")
-        ctx.ids = filtered_card
-    except Exception as err:
-        errstr = str(err)
-        logging.info(errstr)
-        raise err
+    for cid in ctx.ids:
+        nid = mw.col.db.scalar("select nid from cards where id = ?", cid)
+        if nid not in nids:
+            filtered_card.append(cid)
+            nids.add(nid)
+            if nid == selected_nid:
+                idx_of_selected_note = len(filtered_card) - 1
+        elif cid == selected_cid:  # nid in nids
+            filtered_card.pop(idx_of_selected_note)
+            filtered_card.append(cid)
+    ctx.ids = filtered_card
 
 
 gui_hooks.browser_did_search.append(one_by_note)
